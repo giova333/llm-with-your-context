@@ -1,22 +1,21 @@
-import os
 from typing import Any, Dict, List
 
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chat_models import ChatOpenAI
-from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.chat_models import ChatOllama
+from langchain.embeddings import GPT4AllEmbeddings
 from langchain.vectorstores import FAISS
 
 from const import INDEX_NAME
 
 
 def run_llm(query: str, chat_history: List[Dict[str, Any]] = []):
-    embeddings = OpenAIEmbeddings(openai_api_key=os.environ["OPENAI_API_KEY"])
+    embeddings = GPT4AllEmbeddings()
     docsearch = FAISS.load_local(
         folder_path= INDEX_NAME,
         embeddings=embeddings,
         index_name="index"
     )
-    chat = ChatOpenAI(
+    chat = ChatOllama(
         verbose=True,
         temperature=0,
     )

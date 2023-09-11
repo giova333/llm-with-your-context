@@ -1,5 +1,5 @@
 from langchain.document_loaders import DirectoryLoader
-from langchain.embeddings import OpenAIEmbeddings
+from langchain.embeddings import GPT4AllEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import FAISS
 
@@ -15,7 +15,7 @@ def ingest_docs():
     )
     documents = text_splitter.split_documents(raw_documents)
 
-    embeddings = OpenAIEmbeddings()
+    embeddings = GPT4AllEmbeddings()
     vector_store = FAISS.from_documents(documents, embeddings)
     vector_store.save_local(INDEX_NAME)
 
